@@ -9,65 +9,77 @@
 </head>
 
 <body>
-	<header>
-		<h1>conversor de bases</h1>
-		<p>binário · quaternário · octal · decimal · hexadecimal</p>
+	<div class="scanline"></div>
+
+	<header class="app-header">
+		<span class="eyebrow">registrador</span>
+		<h1>conversor<span class="dot">.</span>bases</h1>
+		<p class="subtitle">binário · quaternário · octal · decimal · hexadecimal</p>
 	</header>
 
-	<main>
-		<form novalidate>
-			<div>
-				<label for="value">valor de entrada</label>
-				<input type="text" name="value" placeholder="1010 -2f 255" autocomplete="off" spellcheck="false" />
+	<main class="panel">
+		<form id="converter-form" class="form" novalidate>
+			<div class="field">
+				<label for="value-input">valor de entrada</label>
+				<input type="text" id="value-input" name="value" placeholder="1010  ffb84d  255" autocomplete="off"
+					spellcheck="false" />
 			</div>
 
-			<div>
-				<label for="source-base">base de origem</label>
-				<select name="source-base">
-					<option value="2">2 — binário</option>
-					<option value="4">4 — quaternário</option>
-					<option value="8">8 — octal</option>
-					<option value="10" selected>10 — decimal</option>
-					<option value="16">16 — hexadecimal</option>
-				</select>
+			<div class="select-row">
+				<div class="field select-field">
+					<label for="source-base">base de origem</label>
+					<select id="source-base" name="source-base">
+						<option value="2">2 — binário</option>
+						<option value="4">4 — quaternário</option>
+						<option value="8">8 — octal</option>
+						<option value="10" selected>10 — decimal</option>
+						<option value="16">16 — hexadecimal</option>
+					</select>
+				</div>
+
+				<button type="button" id="swap-button" class="swap-button" title="inverter origem e destino"
+					aria-label="inverter origem e destino">
+					⇄
+				</button>
+
+				<div class="field select-field">
+					<label for="target-base">base de destino</label>
+					<select id="target-base" name="target-base">
+						<option value="2">2 — binário</option>
+						<option value="4">4 — quaternário</option>
+						<option value="8">8 — octal</option>
+						<option value="16" selected>16 — hexadecimal</option>
+						<option value="all">todas as bases</option>
+					</select>
+				</div>
 			</div>
 
-
-			<button type="button" title="inverter origem e destino" aria-label="inverter origem e destino">
-				⇄
-			</button>
-
-			<div>
-				<label for="target-base">base de destino</label>
-				<select name="target-base">
-					<option value="2">2 — binário</option>
-					<option value="4">4 — quaternário</option>
-					<option value="8">8 — octal</option>
-					<option value="16" selected>16 — hexadecimal</option>
-					<option value="all">todas as bases</option>
-				</select>
-			</div>
-
-			<div>
-				<button type="submit">converter</button>
-				<button type="button">limpar</button>
+			<div class="actions">
+				<button type="submit" class="btn-primary">converter</button>
+				<button type="button" id="clear-button" class="btn-secondary">limpar</button>
 			</div>
 		</form>
 
-		<section aria-live="polite">
-			<p class="placeholder">resultado aparece aqui</p>
+		<section class="result" id="result-area" aria-live="polite">
+			<p class="placeholder" id="result-placeholder">resultado aparece aqui</p>
 
-			<div class="output">
-				<span class=" output-label"></span>
-				<span class="output-value"></span>
+			<div class="error hidden" id="error-area" role="alert">
+				<span class="error-icon">!</span>
+				<span id="error-text"></span>
 			</div>
 
-			<table class="bases-table">
-				<tbody></tbody>
+			<div class="output hidden" id="single-output">
+				<span class="output-label" id="output-label"></span>
+				<span class="output-value" id="output-value"></span>
+				<button type="button" class="btn-copy" id="copy-button" title="copiar resultado">copiar</button>
+			</div>
+
+			<table class="bases-table hidden" id="all-bases-table">
+				<tbody id="table-body"></tbody>
 			</table>
 		</section>
 
-		<footer>
+		<footer class="app-footer">
 			<span>conversor de bases · fatec</span>
 		</footer>
 	</main>

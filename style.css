@@ -1,0 +1,378 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap");
+
+:root {
+	--bg: #0d1321;
+	--bg-panel: #141c30;
+	--line: #263352;
+	--text: #e7ecf7;
+	--text-weak: #7c8aad;
+	--text-strong: #fff;
+	--accent: #ffb84d;
+	--accent-weak: #7a5a2a;
+	--error: #ff6b6b;
+	--error-bg: #2a1418;
+	--ok-bg: #10182a;
+	--font: "Space Mono", "Courier New", monospace;
+	--radius: 3px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	background: var(--bg);
+	background-image:
+		linear-gradient(var(--line) 1px, transparent 1px),
+		linear-gradient(90deg, var(--line) 1px, transparent 1px);
+	background-size: 28px 28px;
+	background-position: -1px -1px;
+	color: var(--text);
+	font-family: var(--font);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 32px 16px;
+	position: relative;
+	overflow-x: hidden;
+	gap: 20px;
+}
+
+.scanline {
+	pointer-events: none;
+	position: fixed;
+	inset: 0;
+	background: repeating-linear-gradient(
+		to bottom,
+		rgba(255, 255, 255, 0.015) 0px,
+		rgba(255, 255, 255, 0.015) 1px,
+		transparent 1px,
+		transparent 3px
+	);
+	z-index: 1;
+}
+
+.app-header {
+	position: relative;
+	z-index: 2;
+	width: 100%;
+	max-width: 460px;
+	text-align: left;
+}
+
+.eyebrow {
+	display: inline-block;
+	font-size: 11px;
+	letter-spacing: 0.14em;
+	color: var(--accent);
+	border: 1px solid var(--accent-weak);
+	padding: 2px 8px;
+	border-radius: 2px;
+	margin-bottom: 12px;
+}
+
+h1 {
+	font-size: 26px;
+	margin: 0;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+}
+
+.dot {
+	color: var(--accent);
+}
+
+.subtitle {
+	margin: 8px 0 0;
+	font-size: 12px;
+	color: var(--text-weak);
+}
+
+.panel {
+	position: relative;
+	z-index: 2;
+	width: 100%;
+	max-width: 460px;
+	background: var(--bg-panel);
+	border: 1px solid var(--line);
+	border-radius: 6px;
+	padding: 28px 26px 20px;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+label {
+	font-size: 11px;
+	color: var(--text-strong);
+	letter-spacing: 0.03em;
+}
+
+input[type="text"],
+select {
+	font-family: var(--font);
+	font-size: 15px;
+	background: var(--bg);
+	border: 1px solid var(--line);
+	color: var(--text);
+	padding: 10px 12px;
+	border-radius: var(--radius);
+	outline: none;
+	transition: border-color 0.15s ease;
+}
+
+input[type="text"] {
+	letter-spacing: 0.03em;
+}
+
+input[type="text"]:focus,
+select:focus {
+	border-color: var(--accent);
+}
+
+input[type="text"].invalid {
+	border-color: var(--error);
+}
+
+.select-row {
+	display: grid;
+	grid-template-columns: 1fr auto 1fr;
+	gap: 10px;
+	align-items: end;
+}
+
+.select-field select {
+	width: 100%;
+}
+
+.swap-button {
+	height: 40px;
+	width: 40px;
+	align-self: center;
+	background: var(--bg);
+	border: 1px solid var(--line);
+	color: var(--accent);
+	border-radius: var(--radius);
+	font-size: 16px;
+	cursor: pointer;
+	transition:
+		border-color 0.15s ease,
+		transform 0.15s ease;
+}
+
+.swap-button:hover {
+	border-color: var(--accent);
+}
+
+.swap-button:active {
+	transform: rotate(180deg);
+}
+
+.actions {
+	display: flex;
+	gap: 10px;
+	margin-top: 4px;
+}
+
+button {
+	font-family: var(--font);
+	cursor: pointer;
+}
+
+.btn-primary {
+	flex: 1;
+	background: var(--accent);
+	color: #1a1200;
+	border: none;
+	padding: 11px 16px;
+	border-radius: var(--radius);
+	font-weight: 700;
+	font-size: 14px;
+	letter-spacing: 0.03em;
+	transition: filter 0.15s ease;
+}
+
+.btn-primary:hover {
+	filter: brightness(1.08);
+}
+
+.btn-secondary {
+	background: transparent;
+	color: var(--text-weak);
+	border: 1px solid var(--line);
+	padding: 11px 14px;
+	border-radius: var(--radius);
+	font-size: 14px;
+}
+
+.btn-secondary:hover {
+	border-color: var(--text-weak);
+	color: var(--text);
+}
+
+.result {
+	margin-top: 20px;
+	min-height: 64px;
+	border-top: 1px dashed var(--line);
+	padding-top: 18px;
+}
+
+.placeholder {
+	margin: 0;
+	font-size: 12px;
+	color: var(--text-weak);
+}
+
+.hidden {
+	display: none !important;
+}
+
+.error {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	background: var(--error-bg);
+	border: 1px solid var(--error);
+	color: var(--error);
+	padding: 10px 12px;
+	border-radius: var(--radius);
+	font-size: 13px;
+}
+
+.error-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	border: 1px solid var(--error);
+	font-size: 12px;
+	flex-shrink: 0;
+}
+
+.output {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	background: var(--ok-bg);
+	border: 1px solid var(--line);
+	padding: 14px;
+	border-radius: var(--radius);
+}
+
+.output-label {
+	font-size: 11px;
+	color: var(--text-weak);
+	flex-shrink: 0;
+}
+
+.output-value {
+	font-size: 19px;
+	font-weight: 700;
+	color: var(--accent);
+	word-break: break-all;
+	flex: 1;
+}
+
+.btn-copy {
+	background: transparent;
+	border: 1px solid var(--line);
+	color: var(--text-weak);
+	font-size: 11px;
+	padding: 6px 10px;
+	border-radius: var(--radius);
+	flex-shrink: 0;
+}
+
+.btn-copy:hover {
+	color: var(--text);
+	border-color: var(--text-weak);
+}
+
+.btn-copy.copied {
+	color: var(--accent);
+	border-color: var(--accent-weak);
+}
+
+.bases-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 13px;
+}
+
+.bases-table td {
+	padding: 8px 10px;
+	border-bottom: 1px solid var(--line);
+}
+
+.bases-table td:first-child {
+	color: var(--text-weak);
+	width: 40%;
+}
+
+.bases-table td:last-child {
+	color: var(--accent);
+	font-weight: 700;
+	word-break: break-all;
+}
+
+.bases-table tr:last-child td {
+	border-bottom: none;
+}
+
+.app-footer {
+	margin-top: 20px;
+	text-align: center;
+	font-size: 10px;
+	color: var(--text-weak);
+	letter-spacing: 0.05em;
+}
+
+@media (max-width: 420px) {
+	.panel {
+		padding: 22px 18px 16px;
+	}
+
+	.select-row {
+		margin-top: 22px;
+		grid-template-columns: 1fr;
+	}
+
+	.swap-button {
+		justify-self: center;
+		transform: rotate(90deg);
+	}
+
+	.swap-button:active {
+		transform: rotate(270deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.swap-button,
+	.btn-primary {
+		transition: none;
+	}
+
+	.swap-button:active {
+		transform: none;
+	}
+}
