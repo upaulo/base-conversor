@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Alquimia Numérica</title>
+	<link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+	<header>
+		<h1>conversor de bases</h1>
+		<p>binário · quaternário · octal · decimal · hexadecimal</p>
+	</header>
+
+	<main>
+		<form novalidate>
+			<div>
+				<label for="value">valor de entrada</label>
+				<input type="text" name="value" placeholder="1010 -2f 255" autocomplete="off" spellcheck="false" />
+			</div>
+
+			<div>
+				<label for="source-base">base de origem</label>
+				<select name="source-base">
+					<option value="2">2 — binário</option>
+					<option value="4">4 — quaternário</option>
+					<option value="8">8 — octal</option>
+					<option value="10" selected>10 — decimal</option>
+					<option value="16">16 — hexadecimal</option>
+				</select>
+			</div>
+
+
+			<button type="button" title="inverter origem e destino" aria-label="inverter origem e destino">
+				⇄
+			</button>
+
+			<div>
+				<label for="target-base">base de destino</label>
+				<select name="target-base">
+					<option value="2">2 — binário</option>
+					<option value="4">4 — quaternário</option>
+					<option value="8">8 — octal</option>
+					<option value="16" selected>16 — hexadecimal</option>
+					<option value="all">todas as bases</option>
+				</select>
+			</div>
+
+			<div>
+				<button type="submit">converter</button>
+				<button type="button">limpar</button>
+			</div>
+		</form>
+
+		<section aria-live="polite">
+			<p class="placeholder">resultado aparece aqui</p>
+
+			<div class="output">
+				<span class=" output-label"></span>
+				<span class="output-value"></span>
+			</div>
+
+			<table class="bases-table">
+				<tbody></tbody>
+			</table>
+		</section>
+
+		<footer>
+			<span>conversor de bases · fatec</span>
+		</footer>
+	</main>
+</body>
+
+</html>
