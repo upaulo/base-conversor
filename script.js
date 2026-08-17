@@ -50,6 +50,13 @@ const tableBody = document.getElementById("table-body");
  * @returns {{ ok: true, clean: string } | { ok: false, message: string }}
  */
 
+function getValidBaseRegex(base) {
+	const validChars = DIGITS.slice(0, base);
+	const safeChars = validChars.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+	return new RegExp(`^-?[${safeChars}]+$`, "i");
+}
+
 function validateInput(rawValue, base) {
 	const value = (rawValue ?? "").trim();
 
@@ -62,9 +69,7 @@ function validateInput(rawValue, base) {
 	}
 
 	const normalized = value.replace(/^\+/, "");
-
-	const validAlphabet = DIGITS.slice(0, base);
-	const regex = new RegExp(`^-?[${validAlphabet}]+$`, "i");
+	const regex = getValidBaseRegex(base);
 
 	if (!regex.test(normalized)) {
 		return {
@@ -86,6 +91,14 @@ function validateInput(rawValue, base) {
 function toDecimal(value, base) {
 	const negative = value.startsWith("-");
 	const digitsStr = negative ? value.slice(1) : value;
+
+	// let digitsStr;
+	// if (negative === true) {
+	// 	digitsStr = value.slice(1);
+	// } else {
+	// 	digitsStr = value;
+	// }
+
 	const baseBig = BigInt(base);
 
 	let accumulated = 0n;
@@ -209,6 +222,11 @@ function onSubmit(event) {
 	showSingleResult(conversion.result, targetBase);
 }
 
+function updateHint() {
+	const base = Number(sourceBaseSelect.value);
+	digitsHint.textContent = `dígitos aceitos: ${ACCEPTED_DIGITS[base]}`;
+}
+
 function onClear() {
 	form.reset();
 	valueInput.classList.remove("invalid");
@@ -228,11 +246,6 @@ function onSwap() {
 	targetBaseSelect.value = currentSource;
 
 	updateHint();
-}
-
-function updateHint() {
-	const base = Number(sourceBaseSelect.value);
-	digitsHint.textContent = `dígitos aceitos: ${ACCEPTED_DIGITS[base]}`;
 }
 
 async function onCopy() {
