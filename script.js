@@ -17,8 +17,8 @@ const BASE_NAMES = {
 const ACCEPTED_DIGITS = {
 	2: "0 1",
 	4: "0 1 2 3",
-	8: "0 1 2 3 4 5 6 7",
-	10: "0 1 2 3 4 5 6 7 8 9",
+	8: "0-7",
+	10: "0-9",
 	16: "0-9 A-F",
 };
 
@@ -227,12 +227,26 @@ function updateHint() {
 	digitsHint.textContent = `dígitos aceitos: ${ACCEPTED_DIGITS[base]}`;
 }
 
+function updateTargetOptions() {
+	const source = sourceBaseSelect.value;
+	const opts = [...targetBaseSelect.options];
+
+	for (const opt of opts) opt.hidden = opt.disabled = opt.value === source;
+
+	const current = targetBaseSelect.selectedOptions[0];
+	if (current && !current.disabled) return;
+
+	const fallback = opts.find((o) => !o.disabled && o.value !== "all");
+	if (fallback) targetBaseSelect.value = fallback.value;
+}
+
 function onClear() {
 	form.reset();
 	valueInput.classList.remove("invalid");
 	hideAll();
 	resultPlaceholder.classList.remove("hidden");
 	updateHint();
+	updateTargetOptions();
 	valueInput.focus();
 }
 
@@ -246,6 +260,7 @@ function onSwap() {
 	targetBaseSelect.value = currentSource;
 
 	updateHint();
+	updateTargetOptions();
 }
 
 async function onCopy() {
@@ -270,9 +285,13 @@ form.addEventListener("submit", onSubmit);
 clearButton.addEventListener("click", onClear);
 swapButton.addEventListener("click", onSwap);
 copyButton.addEventListener("click", onCopy);
-sourceBaseSelect.addEventListener("change", updateHint);
+sourceBaseSelect.addEventListener("change", () => {
+	updateHint();
+	updateTargetOptions();
+});
 valueInput.addEventListener("input", () =>
 	valueInput.classList.remove("invalid"),
 );
 
 updateHint();
+updateTargetOptions();
