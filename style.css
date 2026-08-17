@@ -22,7 +22,7 @@
 
 html,
 body {
-	height: 100%;
+	min-height: 100%;
 }
 
 body {
@@ -254,6 +254,7 @@ button {
 	padding: 10px 12px;
 	border-radius: var(--radius);
 	font-size: 13px;
+	word-break: break-all;
 }
 
 .error-icon {
